@@ -5,7 +5,7 @@ export default function Home() {
       <div className="flex flex-col items-center xl:grid xl:grid-cols-2 ">
 
         <div className="mt-[60px] bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:ml-[70px] xl:mr-[156px]">
-          <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px]">
+          <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] xl:text-[16px]">
             <p className="text-[#4D5562] font-bold">Detect Language</p>
             <button className="bg-[#4D5562] rounded-xl p-2 pr-[0.75rem] pl-[0.75rem]">English</button>
             <button className="text-[#4D5562] font-bold">French</button>
@@ -15,7 +15,7 @@ export default function Home() {
             
           <div>
           <hr className="border-t border-[#394150] md:ml-7 md:mr-7 ml-5 mr-5"/>
-            <p className="ml-5 mr-5 mt-7 md:ml-7 md:mr-7 m-28 md:mb-40 font-semibold">Hello!, how are you?</p>
+            <textarea className="bg-transparent w-full h-[400px]" type="input" placeholder="Hello how are you?"/>
             <p className="text-right mr-5 text-[#4D5562] text-[0.75rem]">19/500</p>
           </div>
             
@@ -29,9 +29,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-5 bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:mr-[70px] xl:ml-[0px] xl:mt-[60px]">
+        <div className="mt-5 bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:mr-[70px] xl:ml-[0px] xl:mt-[60px] xl:text-[16px]">
           <div className="flex justify-between">
-            <div className="flex p-5 ml-4 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] md:ml-7 md:mr-7 md:p-6 md:pt-8">
+            <div className="flex p-5 ml-4 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] md:ml-7 md:mr-7 md:p-6 md:pt-8 xl:text-[16px]">
               <button className="text-[#4D5562] font-bold">English</button>
               <button className="bg-[#4D5562] rounded-xl p-2 pr-[0.75rem] pl-[0.75rem]" >French</button>
               <button className="text-[#4D5562] font-bold flex items-center">Spanish <img src="/Expand_down.svg" className="ml-2"/></button>
