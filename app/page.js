@@ -1,4 +1,24 @@
+"use client"
+import { useState } from "react";
+
 export default function Home() {
+  const [inputText, setInputText] = useState('Hello how are you?')
+  const [translatedText, setTranslatedText] = useState('Bonjour, comment allez-vouz?')
+
+  const translateText = async () => {
+    try {
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(inputText)}&langpair=en|es`);
+      const data = await response.json();
+      if (data.responseData && data.responseData.translatedText) {
+        setTranslatedText(data.responseData.translatedText);
+      } else {
+        console.error('Error translating text:', data);
+      }
+    } catch (error) {
+      console.error('Error translating text:', error);
+    }
+  };
+
   return (
     <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen flex flex-col items-center">
       <header className="mt-[100px] md:mb-[0px]"><img src='/logo.svg' alt="logo" className="md:h-14"/></header>
@@ -15,7 +35,13 @@ export default function Home() {
             
           <div>
           <hr className="border-t border-[#394150] md:ml-7 md:mr-7 ml-5 mr-5"/>
-            <textarea className="bg-transparent w-full h-[400px]" type="input" placeholder="Hello how are you?"/>
+            <textarea 
+              className="bg-transparent w-full h-[400px]" 
+              type="input" 
+              placeholder="Hello how are you?"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              />
             <p className="text-right mr-5 text-[#4D5562] text-[0.75rem]">19/500</p>
           </div>
             
@@ -25,7 +51,7 @@ export default function Home() {
               <button className="border-[2.3px] border-[#4D5562] rounded-2xl p-[6px]"><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
             </div>
 
-            <button className="bg-[#3662E3] rounded-xl flex p-[11.7px] pl-7 pr-7 border border-[#CDD5E0]/60"><img src='/Sort_alfa.svg' className="pr-1.5"/>Translate</button>
+            <button onClick={translateText} className="bg-[#3662E3] rounded-xl flex p-[11.7px] pl-7 pr-7 border border-[#CDD5E0]/60"><img src='/Sort_alfa.svg' className="pr-1.5"/>Translate</button>
           </div>
         </div>
 
@@ -42,7 +68,7 @@ export default function Home() {
 
           <div >
           <hr className="border-t border-[#394150] ml-5 mr-5 md:ml-7 md:mr-7"/>
-            <p className="ml-5 mr-5 mt-7 m-36 font-semibold md:ml-7 md:mr-7 xl:pb-[50px]">Bonjour, comment allez-vouz?</p>
+            <p className="ml-5 mr-5 mt-7 m-36 font-semibold md:ml-7 md:mr-7 xl:pb-[50px]">{translatedText}</p>
           </div>
             
           <div className="flex justify-between m-5 mt-3 mb-5">
