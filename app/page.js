@@ -1,11 +1,10 @@
 export default function Home() {
   return (
-    <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen">
-      <div className="flex flex-col items-center">
-        
-        <header className="mt-[100px] md:mb-[0px]"><img src='/logo.svg' alt="logo" className="md:h-14"/></header>
+    <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen flex flex-col items-center">
+      <header className="mt-[100px] md:mb-[0px]"><img src='/logo.svg' alt="logo" className="md:h-14"/></header>
+      <div className="flex flex-col items-center xl:grid xl:grid-cols-2 ">
 
-        <div className="mt-[60px] bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px]">
+        <div className="mt-[60px] bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:ml-[70px] xl:mr-[156px]">
           <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px]">
             <p className="text-[#4D5562] font-bold">Detect Language</p>
             <button className="bg-[#4D5562] rounded-xl p-2 pr-[0.75rem] pl-[0.75rem]">English</button>
@@ -30,7 +29,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-5 bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px]">
+        <div className="mt-5 bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:mr-[70px] xl:ml-[0px] xl:mt-[60px]">
           <div className="flex justify-between">
             <div className="flex p-5 ml-4 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] md:ml-7 md:mr-7 md:p-6 md:pt-8">
               <button className="text-[#4D5562] font-bold">English</button>
@@ -43,7 +42,7 @@ export default function Home() {
 
           <div >
           <hr className="border-t border-[#394150] ml-5 mr-5 md:ml-7 md:mr-7"/>
-            <p className="ml-5 mr-5 mt-7 m-36 font-semibold md:ml-7 md:mr-7">Bonjour, comment allez-vouz?</p>
+            <p className="ml-5 mr-5 mt-7 m-36 font-semibold md:ml-7 md:mr-7 xl:pb-[50px]">Bonjour, comment allez-vouz?</p>
           </div>
             
           <div className="flex justify-between m-5 mt-3 mb-5">
