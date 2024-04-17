@@ -1,5 +1,7 @@
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const DMSans = DM_Sans({ subsets: ["latin"] });
 

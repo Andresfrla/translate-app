@@ -1,64 +1,21 @@
 "use client"
+import { AUTO_LANGUAGE } from "@/constants/constants";
+import { useStore } from "@/hooks/useStore";
 import React, { useState } from "react";
 
 export default function Home() {
-  const [inputText, setInputText] = useState('Hello how are you?');
-  const [translatedText, setTranslatedText] = useState('Bonjour, comment allez-vous?');
-  const [inputLanguage, setInputLanguage] = useState('en');
-  const [outputLanguage, setOutputLanguage] = useState('fr');
-
-  const detectLanguage = async (text) => {
-    try {
-      const response = await fetch(`https://translation.googleapis.com/language/translate/v2/detect?key=${API_KEY}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          q: text,
-        }),
-      });
-      const data = await response.json();
-      if (data && data.data && data.data.detections && data.data.detections.length > 0) {
-        return data.data.detections[0][0].language;
-      } else {
-        console.error('Error detecting language:', data);
-        return null;
-      }
-    } catch (error) {
-      console.error('Error detecting language:', error);
-      return null;
-    }
-  };
-
-  const handleDetectLanguage = async () => {
-    const detectedLanguage = await detectLanguage(inputText);
-    if (detectedLanguage) {
-      setInputLanguage(detectedLanguage);
-    }
-  };
-
-  const translateText = async () => {
-    try {
-      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(inputText)}&langpair=${inputLanguage}|${outputLanguage}`);
-      const data = await response.json();
-      if (data.responseData && data.responseData.translatedText) {
-        setTranslatedText(data.responseData.translatedText);
-      } else {
-        console.error('Error translating text:', data);
-      }
-    } catch (error) {
-      console.error('Error translating text:', error);
-    }
-  };
+  const { fromLanguage, toLanguage, setFromLanguage } = useStore()
 
   return (
     <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen flex flex-col items-center">
-      <header className="mt-[100px] md:mb-[0px]"><img src='/logo.svg' alt="logo" className="md:h-14"/></header>
+      <div className="header-container w-full flex justify-center">
+        <header className="mt-[100px] md:mb-[0px]"><img src='/logo.svg' alt="logo" className="md:h-14"/></header>
+      </div>
+
       <div className="flex flex-col items-center xl:grid xl:grid-cols-2">
         <div className="mt-[60px] bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] h-[340px] md:w-[880px] md:h-[340px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:h-[340px] xl:ml-[70px] xl:mr-[156px]">
-          <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] xl:text-[16px]">
-            <button onClick={handleDetectLanguage} className="text-[#4D5562] font-bold">Detect Language</button>
+          <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center justify-start text-[0.875rem] md:text-[19px] xl:text-[16px]">
+            <button onClick={() => {}} className="text-[#4D5562] font-bold">Detect Language</button>
             <button 
               className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${inputLanguage === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
               onClick={() => setInputLanguage('en')}
@@ -82,7 +39,7 @@ export default function Home() {
           <div>
             <hr className="border-t border-[#394150] md:ml-7 md:mr-7 ml-5 mr-5"/>
             <textarea 
-              className="bg-transparent w-full h-[160px] md:h-[130px] pt-6 pl-6 pr-6" 
+              className="bg-transparent w-full h-[160px] md:h-[130px] pt-6 pl-6 pr-6 resize-none" 
               type="input" 
               placeholder="Hello how are you?"
               value={inputText}
@@ -97,13 +54,13 @@ export default function Home() {
               <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]"><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
             </div>
 
-            <button onClick={translateText} className="bg-[#3662E3] rounded-xl flex p-[11.7px] pl-7 pr-7 border border-[#CDD5E0]/60"><img src='/Sort_alfa.svg' className="pr-1.5"/>Translate</button>
+            <button onClick={() => {}} className="bg-[#3662E3] rounded-xl flex p-[11.7px] pl-7 pr-7 border border-[#CDD5E0]/60"><img src='/Sort_alfa.svg' className="pr-1.5"/>Translate</button>
           </div>
         </div>
 
         <div className="mt-5 bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] h-[340px] md:w-[880px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:h-[340px] xl:mr-[70px] xl:ml-[0px] xl:mt-[60px] xl:text-[16px]">
           <div className="flex justify-between">
-            <div className="flex p-5 ml-4 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] md:ml-7 md:mr-7 md:p-6 md:pt-8 xl:text-[16px]">
+            <div className="flex p-5 ml-4 pb-3 full-w space-x-7 items-center justify-start text-[0.875rem] md:text-[19px] md:ml-7 md:mr-7 md:p-6 md:pt-8 xl:text-[16px]">
               <button 
                 className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${outputLanguage === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
                 onClick={() => setOutputLanguage('en')}
@@ -123,7 +80,12 @@ export default function Home() {
                 Spanish
               </button>
             </div>
-            <button className="border-[2.5px] border-[#4D5562] rounded-xl pr-[4.8px] pl-[4.8px] m-4 md:m-7"><img src='/Horizontal_top_left_main.svg' className="md:size-6 md:m-[2px]"/></button>
+            <button 
+              onClick={() => {
+                interchangeLanguage
+              }}
+              disable={fromLanguage === AUTO_LANGUAGE}
+              className="border-[2.5px] border-[#4D5562] rounded-xl pr-[4.8px] pl-[4.8px] m-4 md:m-7"><img src='/Horizontal_top_left_main.svg' className="md:size-6 md:m-[2px]"/></button>
           </div>
           <div>
             <hr className="border-t border-[#394150] ml-5 mr-5 md:ml-7 md:mr-7"/>
