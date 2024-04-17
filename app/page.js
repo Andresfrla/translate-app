@@ -1,10 +1,11 @@
 "use client"
+import LanguageSelector from "@/components/LanguageSelector";
 import { AUTO_LANGUAGE } from "@/constants/constants";
 import { useStore } from "@/hooks/useStore";
 import React, { useState } from "react";
 
 export default function Home() {
-  const { fromLanguage, toLanguage, setFromLanguage } = useStore()
+  const { fromLanguage, toLanguage, interchangeLanguage, setFromLanguage, setToLanguage } = useStore()
 
   return (
     <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen flex flex-col items-center">
@@ -17,22 +18,22 @@ export default function Home() {
           <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center justify-start text-[0.875rem] md:text-[19px] xl:text-[16px]">
             <button onClick={() => {}} className="text-[#4D5562] font-bold">Detect Language</button>
             <button 
-              className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${inputLanguage === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
+              className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'en' === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
               onClick={() => setInputLanguage('en')}
             >
               English
             </button>
             <button 
-              className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${inputLanguage === 'fr' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
+              className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'fr' === 'fr' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
               onClick={() => setInputLanguage('fr')}
             >
               French
             </button>
             <button 
-              className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${inputLanguage === 'es' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
+              className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'es' === 'es' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
               onClick={() => setInputLanguage('es')}
             >
-              Spanish
+              <LanguageSelector onChange={setFromLanguage}/>
             </button>
           </div>
             
@@ -42,10 +43,10 @@ export default function Home() {
               className="bg-transparent w-full h-[160px] md:h-[130px] pt-6 pl-6 pr-6 resize-none" 
               type="input" 
               placeholder="Hello how are you?"
-              value={inputText}
+              value={() => {}}
               onChange={(e) => setInputText(e.target.value)}
             />
-            <p className="text-right mr-5 text-[#4D5562] text-[0.75rem]">{inputText.length}/500</p>
+            <p className="text-right mr-5 text-[#4D5562] text-[0.75rem]">{() => {}}/500</p>
           </div>
             
           <div className="flex justify-between m-5 mt-3 mb-5 md:ml-7 md:mr-7">
@@ -62,22 +63,22 @@ export default function Home() {
           <div className="flex justify-between">
             <div className="flex p-5 ml-4 pb-3 full-w space-x-7 items-center justify-start text-[0.875rem] md:text-[19px] md:ml-7 md:mr-7 md:p-6 md:pt-8 xl:text-[16px]">
               <button 
-                className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${outputLanguage === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
+                className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'en' === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
                 onClick={() => setOutputLanguage('en')}
               >
                 English
               </button>
               <button 
-                className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${outputLanguage === 'fr' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
+                className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'fr' === 'fr' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
                 onClick={() => setOutputLanguage('fr')}
               >
                 French
               </button>
               <button 
-                className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${outputLanguage === 'es' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
+                className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'es' === 'es' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
                 onClick={() => setOutputLanguage('es')}
               >
-                Spanish
+                <LanguageSelector onChange={setToLanguage}/>
               </button>
             </div>
             <button 
@@ -89,7 +90,7 @@ export default function Home() {
           </div>
           <div>
             <hr className="border-t border-[#394150] ml-5 mr-5 md:ml-7 md:mr-7"/>
-            <p className="ml-5 mr-5 mt-7 m-36 font-semibold md:ml-7 md:mr-7 md:mb-[110px] xl:pb-[10px]">{translatedText}</p>
+            <p className="ml-5 mr-5 mt-7 m-36 font-semibold md:ml-7 md:mr-7 md:mb-[110px] xl:pb-[10px]">{/*translated text*/}</p>
           </div>
             
           <div className="flex justify-between m-5 mt-3 mb-5">
