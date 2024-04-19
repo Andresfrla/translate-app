@@ -33,7 +33,10 @@ export default function Home() {
               className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'es' === 'es' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
               onClick={() => setInputLanguage('es')}
             >
-              <LanguageSelector onChange={setFromLanguage}/>
+              <LanguageSelector 
+                type='from'
+                value={fromLanguage}
+                onChange={setFromLanguage}/>
             </button>
           </div>
             
@@ -78,7 +81,11 @@ export default function Home() {
                 className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${'es' === 'es' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
                 onClick={() => setOutputLanguage('es')}
               >
-                <LanguageSelector onChange={setToLanguage}/>
+                <LanguageSelector 
+                  type='to'
+                  value={fromLanguage}
+                  onChange={setToLanguage}
+                />
               </button>
             </div>
             <button 
