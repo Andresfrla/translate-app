@@ -7,6 +7,7 @@ export default function Home() {
   const [translatedText, setTranslatedText] = useState('Bonjour, comment allez-vous?');
   const [inputLanguage, setInputLanguage] = useState('en');
   const [outputLanguage, setOutputLanguage] = useState('fr');
+  const [isSwappingLanguages, setIsSwappingLanguages] = useState(false);
 
   const copyInputText = () => {
     navigator.clipboard.writeText(inputText);
@@ -62,6 +63,13 @@ export default function Home() {
     } catch (error) {
       console.error('Error translating text:', error);
     }
+  };
+
+  const swapLanguages = () => {
+    setIsSwappingLanguages(true);
+    setInputLanguage(outputLanguage);
+    setOutputLanguage(inputLanguage);
+    setIsSwappingLanguages(false);
   };
 
   return (
@@ -139,7 +147,7 @@ export default function Home() {
                 Spanish
               </button>
             </div>
-            <button className="border-[2.5px] border-[#4D5562] rounded-xl pr-[4.8px] pl-[4.8px] m-4 md:m-7"><img src='/Horizontal_top_left_main.svg' className="md:size-6 md:m-[2px]"/></button>
+            <button className="border-[2.5px] border-[#4D5562] rounded-xl pr-[4.8px] pl-[4.8px] m-4 md:m-7" onClick={swapLanguages}><img src='/Horizontal_top_left_main.svg' className="md:size-6 md:m-[2px]"/></button>
           </div>
           <div>
             <hr className="border-t border-[#394150] ml-5 mr-5 md:ml-7 md:mr-7"/>
