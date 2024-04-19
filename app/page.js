@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster, toast } from 'sonner'
 
 export default function Home() {
@@ -8,6 +8,8 @@ export default function Home() {
   const [inputLanguage, setInputLanguage] = useState('en');
   const [outputLanguage, setOutputLanguage] = useState('fr');
   const [isSwappingLanguages, setIsSwappingLanguages] = useState(false);
+  const [isReadingInput, setIsReadingInput] = useState(false);
+  const [isReadingOutput, setIsReadingOutput] = useState(false);
 
   const copyInputText = () => {
     navigator.clipboard.writeText(inputText);
@@ -69,8 +71,38 @@ export default function Home() {
     setIsSwappingLanguages(true);
     setInputLanguage(outputLanguage);
     setOutputLanguage(inputLanguage);
+    setInputText(translatedText)
+    setTranslatedText(inputText)
     setIsSwappingLanguages(false);
   };
+
+  const handleReadInput = () => {
+    if (!isReadingInput) {
+      const utterance = new SpeechSynthesisUtterance(inputText);
+      speechSynthesis.speak(utterance);
+      setIsReadingInput(true);
+      utterance.onend = () => setIsReadingInput(false);
+    }
+  };
+
+  const handleReadOutput = () => {
+    if (!isReadingOutput) {
+      const utterance = new SpeechSynthesisUtterance(translatedText);
+      speechSynthesis.speak(utterance);
+      setIsReadingOutput(true);
+      utterance.onend = () => setIsReadingOutput(false);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      speechSynthesis.cancel();
+    };
+  }, []);
+
+  const advise = () => {
+    toast.info("We are working on this functionality")
+  }
 
   return (
     <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen flex flex-col items-center">
@@ -79,7 +111,7 @@ export default function Home() {
       <div className="flex flex-col items-center xl:grid xl:grid-cols-2">
         <div className="mt-[60px] bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] h-[340px] md:w-[880px] md:h-[340px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:h-[340px] xl:ml-[70px] xl:mr-[156px]">
           <div className="flex p-5 md:p-6 ml-4 md:ml-5 pb-3 full-w space-x-7 items-center text-[0.875rem] md:text-[19px] xl:text-[16px]">
-            <button onClick={handleDetectLanguage} className="text-[#4D5562] font-bold">Detect Language</button>
+            <button onClick={advise} className="text-[#4D5562] font-bold">Detect Language</button>
             <button 
               className={`rounded-xl p-2 pr-[0.75rem] pl-[0.75rem] ${inputLanguage === 'en' ? 'bg-[#4D5562] text-white' : 'text-[#4D5562] font-bold'}`} 
               onClick={() => setInputLanguage('en')}
@@ -114,7 +146,7 @@ export default function Home() {
             
           <div className="flex justify-between m-5 mt-3 mb-5 md:ml-7 md:mr-7">
             <div className="space-x-2">
-              <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]"><img src='/sound_max_fill.svg' className="md:size-7 md:m-[2px]"/></button>
+              <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]" onClick={handleReadInput}><img src='/sound_max_fill.svg' className="md:size-7 md:m-[2px]"/></button>
               <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]" onClick={copyInputText}><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
               
             </div>
@@ -156,7 +188,7 @@ export default function Home() {
             
           <div className="flex justify-between m-5 mt-3 mb-5">
             <div className="space-x-2 md:ml-2 md:mr-2">
-              <button className="border-[2.5px] border-[#4D5562] rounded-xl p-[6px]"><img src='/sound_max_fill.svg' className="md:size-7 md:m-[2px]"/></button>
+              <button className="border-[2.5px] border-[#4D5562] rounded-xl p-[6px]" onClick={handleReadOutput}><img src='/sound_max_fill.svg' className="md:size-7 md:m-[2px]"/></button>
               <button className="border-[2.5px] border-[#4D5562] rounded-xl p-[6px]" onClick={copyOutputText}><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
             </div>
           </div>
