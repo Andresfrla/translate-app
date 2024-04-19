@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import { Toaster, toast } from 'sonner'
 
 export default function Home() {
   const [inputText, setInputText] = useState('Hello how are you?');
@@ -7,9 +8,19 @@ export default function Home() {
   const [inputLanguage, setInputLanguage] = useState('en');
   const [outputLanguage, setOutputLanguage] = useState('fr');
 
+  const copyInputText = () => {
+    navigator.clipboard.writeText(inputText);
+    toast.success('Text copied');
+  };
+
+  const copyOutputText = () => {
+    navigator.clipboard.writeText(translatedText);
+    toast.success('Text copied');
+  }
+
   const detectLanguage = async (text) => {
     try {
-      const response = await fetch(`https://translation.googleapis.com/language/translate/v2/detect?key=${API_KEY}`, {
+      const response = await fetch(`https://translation.googleapis.com/language/translate/v2/detect?key=${process.env.API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,6 +29,7 @@ export default function Home() {
           q: text,
         }),
       });
+      console.log(response)
       const data = await response.json();
       if (data && data.data && data.data.detections && data.data.detections.length > 0) {
         return data.data.detections[0][0].language;
@@ -54,6 +66,7 @@ export default function Home() {
 
   return (
     <main className="bg-[url('../public/hero_img.jpg')] bg-contain bg-[#040711] bg-no-repeat w-[100%] h-screen flex flex-col items-center">
+      <Toaster richColors  />
       <header className="mt-[100px] md:mb-[0px]"><img src='/logo.svg' alt="logo" className="md:h-14"/></header>
       <div className="flex flex-col items-center xl:grid xl:grid-cols-2">
         <div className="mt-[60px] bg-[#212936cc] rounded-3xl border border-[#4D5562] w-[590px] h-[340px] md:w-[880px] md:h-[340px] md:mr-[70px] md:ml-[70px] mr-[60px] ml-[60px] md:text-[20px] xl:w-[560px] xl:h-[340px] xl:ml-[70px] xl:mr-[156px]">
@@ -82,7 +95,7 @@ export default function Home() {
           <div>
             <hr className="border-t border-[#394150] md:ml-7 md:mr-7 ml-5 mr-5"/>
             <textarea 
-              className="bg-transparent w-full h-[160px] md:h-[130px] pt-6 pl-6 pr-6" 
+              className="bg-transparent w-full h-[160px] md:h-[130px] pt-6 pl-6 pr-6 resize-none" 
               type="input" 
               placeholder="Hello how are you?"
               value={inputText}
@@ -94,8 +107,11 @@ export default function Home() {
           <div className="flex justify-between m-5 mt-3 mb-5 md:ml-7 md:mr-7">
             <div className="space-x-2">
               <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]"><img src='/sound_max_fill.svg' className="md:size-7 md:m-[2px]"/></button>
-              <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]"><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
+              <button className="border-[2.3px] border-[#4D5562] rounded-xl p-[6px]" onClick={copyInputText}><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
+              
             </div>
+
+            
 
             <button onClick={translateText} className="bg-[#3662E3] rounded-xl flex p-[11.7px] pl-7 pr-7 border border-[#CDD5E0]/60"><img src='/Sort_alfa.svg' className="pr-1.5"/>Translate</button>
           </div>
@@ -133,7 +149,7 @@ export default function Home() {
           <div className="flex justify-between m-5 mt-3 mb-5">
             <div className="space-x-2 md:ml-2 md:mr-2">
               <button className="border-[2.5px] border-[#4D5562] rounded-xl p-[6px]"><img src='/sound_max_fill.svg' className="md:size-7 md:m-[2px]"/></button>
-              <button className="border-[2.5px] border-[#4D5562] rounded-xl p-[6px]"><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
+              <button className="border-[2.5px] border-[#4D5562] rounded-xl p-[6px]" onClick={copyOutputText}><img src='/Copy.svg' className="md:size-7 md:m-[2px]"/></button>
             </div>
           </div>
         </div>
